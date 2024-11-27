@@ -1,37 +1,79 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Tabs } from "expo-router";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import icons from "@/constants/icons";
+import colors from "../../constants/Colors";
+import TabIcon from "@/components/TabIcon";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-      }}>
+        tabBarShowLabel: false,
+
+        tabBarStyle: {
+            backgroundColor: colors.primary,
+            height: 75,
+            borderTopWidth: 1,
+            borderColor : colors.black_200
+
+          },
+          
+        
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="Home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          title: "Home",
+          tabBarIcon: ({ color, size, focused }) => {
+            return <TabIcon text="Home" icon="home" focused={focused} />;
+          },
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="Create"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          title: "Create",
+          tabBarIcon: ({ color, size, focused }) => {
+            return <TabIcon text="Create" icon="create" focused={focused} />;
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="Bookmark"
+        options={{
+          title: "Bookmark",
+          tabBarIcon: ({ color, size, focused }) => {
+            return (
+              <TabIcon
+                text="Chat"
+                icon="chatbox-ellipses-outline"
+                focused={focused}
+              />
+            );
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, size, focused }) => {
+            return (
+              <TabIcon
+                text="Profile"
+                icon="briefcase-sharp"
+                focused={focused}
+              />
+            );
+          },
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default TabLayout;
